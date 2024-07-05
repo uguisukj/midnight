@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://cdn.glitch.global/117edc83-f6cb-4b14-816d-394a3d823989/home.png?v=1720145269515">
-  <title>MidNight</title>
+    <title>Pedido Personalizado - MidNight</title>
     <style>
         /* Fontes do Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -82,36 +82,25 @@
             text-transform: uppercase;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-        .products {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
         }
-        .product {
-            background-color: #1a1a1a;
-            border: 2px solid #aa00ff;
-            border-radius: 30px;
-            padding: 20px;
-            margin: 10px;
-            width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .product:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-        .product h3 {
-            font-size: 2rem;
-            color: #aa00ff;
-            margin: 10px 0;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        .product p {
-            font-size: 1.2rem;
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
             color: #b3b3b3;
         }
-        .product button {
+        .form-group input[type="text"], .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .form-group input[type="submit"] {
             background-color: #aa00ff;
             color: #ffffff;
             border: none;
@@ -121,7 +110,7 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
-        .product button:hover {
+        .form-group input[type="submit"]:hover {
             background-color: #8c00b3;
         }
 
@@ -151,40 +140,76 @@
 <body>
     <header class="fadeIn">
         <h1>MidNight</h1>
-        <p>Sua loja online de produtos incríveis!</p>
+        <p>Pedido Personalizado</p>
         <div class="painel">
             <a href="login.html"><button>God Painel</button></a>
         </div>
     </header>
     <div class="container fadeIn">
-        <h2>Produtos em destaque</h2>
-        <div class="products">
-            <div class="product">
-                <h3>🔥 Sources Bots</h3>
-                <p>Bots de Discord para seu servidor.</p>
-                <a href="source_bots.html"><button>Ver produtos</button></a>
+        <h2>Faça seu Pedido Personalizado</h2>
+        <form id="pedidoForm" action="#" method="post">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
             </div>
-            <div class="product">
-                <h3>🧠 Cursos</h3>
-                <p>Tenha uma variedade de cursos que te ensinam muito bem!</p>
-                <a href="cursos.html"><button>Ver produtos</button></a>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="text" id="email" name="email" required>
             </div>
-            <div class="product">
-                <h3>❄ Source Servers</h3>
-                <p>Sources de servidores do Discord para você construir o seu.</p>
-                <a href="source_servers.html"><button>Ver produtos</button></a>
+            <div class="form-group">
+                <label for="message">Descreva seu pedido:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
             </div>
-          <div class="product">
-            <h3>✏ Personalizado</h3>
-            <p> Faça um pedido personalizado</p>
-            <a href="custom_pedido.html"><button> Pedir produtos</button>
-            </a>
-          </div>
-            <!-- Adicione mais produtos aqui -->
-        </div>
+            <div class="form-group">
+                <input type="submit" value="Enviar Pedido">
+            </div>
+        </form>
     </div>
     <footer class="fadeIn">
         <p>© 2024 MidNight. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        document.getElementById("pedidoForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            // Pega os dados do formulário
+            var formData = new FormData(this);
+            var name = formData.get("name");
+            var email = formData.get("email");
+            var message = formData.get("message");
+
+            // Constrói o objeto JSON a ser enviado pelo webhook
+            var webhookData = {
+                content: `Novo pedido personalizado:\nNome: ${name}\nE-mail: ${email}\nPedido: ${message}`
+            };
+
+            // URL do seu servidor proxy no Glitch que encaminha para o webhook do Discord
+            var proxyUrl = "https://discord-webhook-proxy.glitch.me/send-webhook";
+
+            // Envia os dados para o servidor proxy
+            fetch(proxyUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    webhookUrl: "https://discord.com/api/webhooks/1258292575853477908/2Bn-WBXZG05OvmSuYGeahY60cRpXBZkhDZhcqHcGad0pUqeDBkTEMsxdtBVo66PX44vv",
+                    webhookData: webhookData
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao enviar pedido.");
+                }
+                alert("Pedido enviado com sucesso!");
+                document.getElementById("pedidoForm").reset(); // Limpa o formulário após o envio
+            })
+            .catch(error => {
+                console.error("Erro ao enviar pedido:", error);
+                alert("Erro ao enviar pedido. Por favor, tente novamente mais tarde.");
+            });
+        });
+    </script>
 </body>
 </html>

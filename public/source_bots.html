@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://cdn.glitch.global/117edc83-f6cb-4b14-816d-394a3d823989/home.png?v=1720145269515">
-  <title>MidNight</title>
+    <title>Sources Bots - MidNight</title>
     <style>
-        /* Fontes do Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-        /* Estilos gerais */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -18,8 +15,6 @@
             color: #ffffff;
             line-height: 1.6;
         }
-
-        /* Cabeçalho */
         header {
             background-color: #000000;
             padding: 20px;
@@ -40,19 +35,17 @@
             margin: 5px 0 0;
             color: #b3b3b3;
         }
-
-        /* Estilização do botão do painel administração */
         .painel {
             position: absolute;
             top: 10px;
             right: 20px;
-            z-index: 1001; /* Maior que o cabeçalho para ficar acima */
+            z-index: 1001;
         }
         .painel a {
             text-decoration: none;
         }
         .painel button {
-            background-color: #ff0000; /* Vermelho */
+            background-color: #ff0000;
             color: #ffffff;
             border: none;
             padding: 10px 20px;
@@ -62,10 +55,8 @@
             transition: background-color 0.3s ease;
         }
         .painel button:hover {
-            background-color: #cc0000; /* Tom mais escuro ao passar o mouse */
+            background-color: #cc0000;
         }
-
-        /* Conteúdo principal */
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -82,7 +73,7 @@
             text-transform: uppercase;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-        .products {
+        .product-list {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -124,8 +115,6 @@
         .product button:hover {
             background-color: #8c00b3;
         }
-
-        /* Rodapé */
         footer {
             background-color: #000000;
             padding: 10px;
@@ -137,8 +126,6 @@
             margin: 0;
             color: #b3b3b3;
         }
-
-        /* Animações */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 5; }
@@ -151,36 +138,30 @@
 <body>
     <header class="fadeIn">
         <h1>MidNight</h1>
-        <p>Sua loja online de produtos incríveis!</p>
+        <p>Sources Bots</p>
         <div class="painel">
             <a href="login.html"><button>God Painel</button></a>
         </div>
     </header>
     <div class="container fadeIn">
-        <h2>Produtos em destaque</h2>
-        <div class="products">
+        <h2>Nossos Bots</h2>
+        <div class="product-list">
             <div class="product">
-                <h3>🔥 Sources Bots</h3>
-                <p>Bots de Discord para seu servidor.</p>
-                <a href="source_bots.html"><button>Ver produtos</button></a>
+                <h3>Bot 1</h3>
+                <p>Descrição do Bot 1.</p>
+                <button>Comprar</button>
             </div>
             <div class="product">
-                <h3>🧠 Cursos</h3>
-                <p>Tenha uma variedade de cursos que te ensinam muito bem!</p>
-                <a href="cursos.html"><button>Ver produtos</button></a>
+                <h3>Bot 2</h3>
+                <p>Descrição do Bot 2.</p>
+                <button>Comprar</button>
             </div>
             <div class="product">
-                <h3>❄ Source Servers</h3>
-                <p>Sources de servidores do Discord para você construir o seu.</p>
-                <a href="source_servers.html"><button>Ver produtos</button></a>
+                <h3>Bot 3</h3>
+                <p>Descrição do Bot 3.</p>
+                <button>Comprar</button>
             </div>
-          <div class="product">
-            <h3>✏ Personalizado</h3>
-            <p> Faça um pedido personalizado</p>
-            <a href="custom_pedido.html"><button> Pedir produtos</button>
-            </a>
-          </div>
-            <!-- Adicione mais produtos aqui -->
+            <!-- Adicione mais bots aqui -->
         </div>
     </div>
     <footer class="fadeIn">
