@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn.glitch.global/117edc83-f6cb-4b14-816d-394a3d823989/home.png?v=1720145269515">
+    <title>Pedido Personalizado - MidNight</title>
+    <style>
+        /* Fontes do Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #aa00ff;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #aa00ff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        header p {
+            font-size: 1.2rem;
+            margin: 5px 0 0;
+            color: #b3b3b3;
+        }
+
+        /* Estilização do botão do painel administração */
+        .painel {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 1001; /* Maior que o cabeçalho para ficar acima */
+        }
+        .painel a {
+            text-decoration: none;
+        }
+        .painel button {
+            background-color: #ff0000; /* Vermelho */
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .painel button:hover {
+            background-color: #cc0000; /* Tom mais escuro ao passar o mouse */
+        }
+
+        /* Conteúdo principal */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #0d0d0d;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #b3b3b3;
+        }
+        .form-group input[type="text"], .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .form-group input[type="submit"] {
+            background-color: #aa00ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #8c00b3;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #000000;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #444;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 0;
+            color: #b3b3b3;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 5; }
+        }
+        .fadeIn {
+            animation: fadeIn 1.4s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <header class="fadeIn">
+        <h1>MidNight</h1>
+        <p>Pedido Personalizado</p>
+        <div class="painel">
+            <a href="login.html"><button>God Painel</button></a>
+        </div>
+    </header>
+    <div class="container fadeIn">
+        <h2>Faça seu Pedido Personalizado</h2>
+        <form id="pedidoForm" action="#" method="post">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Descreva seu pedido:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enviar Pedido">
+            </div>
+        </form>
+    </div>
+    <footer class="fadeIn">
+        <p>© 2024 MidNight. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById("pedidoForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            // Pega os dados do formulário
+            var formData = new FormData(this);
+            var name = formData.get("name");
+            var email = formData.get("email");
+            var message = formData.get("message");
+
+            // Constrói o objeto JSON a ser enviado pelo webhook
+            var webhookData = {
+                content: `Novo pedido personalizado:\nNome: ${name}\nE-mail: ${email}\nPedido: ${message}`
+            };
+
+            // URL do seu servidor proxy no Glitch que encaminha para o webhook do Discord
+            var proxyUrl = "https://discord-webhook-proxy.glitch.me/send-webhook";
+
+            // Envia os dados para o servidor proxy
+            fetch(proxyUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    webhookUrl: "https://discord.com/api/webhooks/1258292575853477908/2Bn-WBXZG05OvmSuYGeahY60cRpXBZkhDZhcqHcGad0pUqeDBkTEMsxdtBVo66PX44vv",
+                    webhookData: webhookData
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao enviar pedido.");
+                }
+                alert("Pedido enviado com sucesso!");
+                document.getElementById("pedidoForm").reset(); // Limpa o formulário após o envio
+            })
+            .catch(error => {
+                console.error("Erro ao enviar pedido:", error);
+                alert("Erro ao enviar pedido. Por favor, tente novamente mais tarde.");
+            });
+        });
+    </script>
+</body>
+</html>
